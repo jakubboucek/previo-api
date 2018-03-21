@@ -1,0 +1,7 @@
+web:
+    hooks:
+        previo:
+            title: "Previo API"
+            login: "Uživatelské jméno"
+            password: "Heslo"
+            hotelId: "ID hotelu"
