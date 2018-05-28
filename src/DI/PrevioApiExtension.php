@@ -11,12 +11,12 @@ use NAttreid\PrevioApi\Hooks\PrevioHook;
 use NAttreid\WebManager\Services\Hooks\HookService;
 use Nette\DI\Statement;
 
-//if (trait_exists('NAttreid\Cms\DI\ExtensionTranslatorTrait')) {
+if (trait_exists('NAttreid\Cms\DI\ExtensionTranslatorTrait')) {
 	class PrevioApiExtension extends AbstractPrevioApiExtension
 	{
 		use ExtensionTranslatorTrait;
 
-		protected function prepareHook(array $config)
+		protected function prepareConfig(array $config)
 		{
 			$builder = $this->getContainerBuilder();
 			$hook = $builder->getByType(HookService::class);
@@ -30,12 +30,12 @@ use Nette\DI\Statement;
 
 				return new Statement('?->previo \?: new ' . PrevioConfig::class, ['@' . Configurator::class]);
 			} else {
-				return parent::prepareHook($config);
+				return parent::prepareConfig($config);
 			}
 		}
 	}
-//} else {
-//	class PrevioApiExtension extends AbstractPrevioApiExtension
-//	{
-//	}
-//}
+} else {
+	class PrevioApiExtension extends AbstractPrevioApiExtension
+	{
+	}
+}

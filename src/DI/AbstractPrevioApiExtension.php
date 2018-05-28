@@ -13,7 +13,7 @@ use Nette\DI\CompilerExtension;
  *
  * @author Attreid <attreid@gmail.com>
  */
- class AbstractPrevioApiExtension extends CompilerExtension
+class AbstractPrevioApiExtension extends CompilerExtension
 {
 	private $defaults = [
 		'login' => null,
@@ -27,19 +27,20 @@ use Nette\DI\CompilerExtension;
 		$builder = $this->getContainerBuilder();
 		$config = $this->validateConfig($this->defaults, $this->getConfig());
 
-		$previo = $this->prepareHook($config);
+		$previo = $this->prepareConfig($config);
 
 		$builder->addDefinition($this->prefix('client'))
 			->setType(PrevioClient::class)
 			->setArguments([$config['debug'], $previo]);
 	}
 
-	protected function prepareHook(array $config)
+	protected function prepareConfig(array $config)
 	{
-		$previo = new PrevioConfig;
-		$previo->login = $config['login'];
-		$previo->password = $config['password'];
-		$previo->hotelId = $config['hotelId'];
-		return $previo;
+		$builder = $this->getContainerBuilder();
+		return $builder->addDefinition($this->prefix('config'))
+			->setFactory(PrevioConfig::class)
+			->addSetup('$login', [$config['login']])
+			->addSetup('$password', [$config['password']])
+			->addSetup('$hotelId', [$config['hotelId']]);
 	}
 }
