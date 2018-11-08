@@ -9,9 +9,9 @@ use Nette\SmartObject;
 /**
  * Class PrevioConfig
  *
- * @property string $login
- * @property string $password
- * @property int $hotelId
+ * @property string|null $login
+ * @property string|null $password
+ * @property int|null $hotelId
  *
  * @author Attreid <attreid@gmail.com>
  */
@@ -19,13 +19,13 @@ class PrevioConfig
 {
 	use SmartObject;
 
-	/** @var string */
+	/** @var string|null */
 	private $login;
 
-	/** @var string */
+	/** @var string|null */
 	private $password;
 
-	/** @var int */
+	/** @var int|null */
 	private $hotelId;
 
 	protected function getLogin(): ?string
